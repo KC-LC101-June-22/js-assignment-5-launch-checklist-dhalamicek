@@ -22,7 +22,7 @@ function validateInput(testInput) {
     return "Empty";
     };
 
-    if (isNan(testInput) === true) {
+    if (isNaN(testInput) === true) {
     return "Not a Number";
 
     } else {
@@ -32,17 +32,13 @@ function validateInput(testInput) {
 
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-   //let pilotStatus = form.getElementById("pilotStatus");
-   //let copilotStatus = form.getElementByName("copilotStatus");
-   //let fuelLevel = form.getElementByName("fuelLevel");
-   //let cargoLevel = form.getElementByName("cargoMass");
-   
+    //what is the list parameter for???  
    if (validateInput() === "Empty") {
     alert("All fields are required");
    };
 
    if (validateInput(pilot) === "Not a Number" || validateInput(copilot) === "Not a Number") {
-    alert("Not a Number");
+    alert("Requires text, not a number.");
    } else {
     let pilotName = document.getElementById("pilotStatus")
     pilotName.innerHTML = "<li>`Pilot ${pilot} Ready`</li>"
@@ -51,7 +47,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
    };
 
    if(validateInput(fuelLevel) === "Is a Number" || validateInput(cargoLevel) === "Is a Number") {
-    alert("Is a Number");
+    alert("Requires a number, not text.");
    };
 
    if (fuelLevel < 10000) {
@@ -93,14 +89,18 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 async function myFetch() {
     let planetsReturned;
 
-    planetsReturned = await fetch().then( function(response) {
-        });
+    planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
+       return response.json() });
 
     return planetsReturned;
 }
 
 function pickPlanet(planets) {
-}
+    for (i=0; i<planets.length; i++) {
+        let randNum = Math.floor(Math.random()*6);
+    }
+    return planets[randNum];
+};
 
 module.exports.addDestinationInfo = addDestinationInfo;
 module.exports.validateInput = validateInput;
