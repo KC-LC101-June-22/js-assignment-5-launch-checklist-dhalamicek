@@ -19,84 +19,92 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
 function validateInput(testInput) {
     if (testInput === "") {
-        return "Empty";
-        };
+        return "Empty"};
 
-   if (isNaN(testInput) === true) {
-    return "Not a Number";
-  };
+    if (isNaN(testInput) === true) {
+    return "Not a Number"};
+
+    if (isNaN(testInput) === false) {
+    return "Is a Number"};
     
-  if (isNaN(testInput) === false) {
-    return "Is a Number";
-};
-  
-};
+    };
 
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-    //what is the list parameter for???  
-   if (validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty") {
+   //*how do I incorporate list - why do I need to? what is it?
+   let pilotNameInput = document.getElementsByName("pilotName")[0].value;
+   let copilotNameInput = document.getElementsByName("copilotName")[0].value;
+   let fuelLevelInput = document.getElementsByName("fuelLevel")[0].value;
+   let cargoLevelInput = document.getElementsByName("cargoMass")[0].value;
+
+   //when an alert comes up below, how do i have it clear the form inputs and run through this validation again?
+
+   if (validateInput(pilotNameInput) === "Empty" || validateInput(copilotNameInput) === "Empty" || validateInput(fuelLevelInput) === "Empty" || validateInput(cargoLevelInput) === "Empty") {
     alert("All fields are required");
-   }; //why is this being skipped?
+    preventDefault()
+   };
 
-   if (validateInput(pilot) === "Is a Number" || validateInput(copilot) === "Is a Number") {
-   alert("Requires text, not a number.");//why is this alerting no matter what?
-   }; 
+   if (validateInput(pilotNameInput) !== "Not a Number" || validateInput(copilotNameInput) !== "Not a Number") {
+   alert("Requires text, not a number."); //this is alerting even when input is correct
+   preventDefault()
+};
 
+   if(validateInput(fuelLevelInput) !== "Is a Number" || validateInput(cargoLevelInput) !== "Is a Number") {
+    alert("Requires a number, not text."); //if all data is valid, this still comes up
+    preventDefault()
+};
+
+  if (validateInput(pilotNameInput) === "Not a Number" && validateInput(copilotNameInput) === "Not a Number" && validateInput(fuelLevelInput) === "Is a Number" && validateInput(cargoLevelInput) === "Is a Number") {
+    //do i put an event listener and create a form of the inputs to let the function to keep moving down thru the code and if so...how? 
+    let launch = document.getElementById("launchStatus");   
+    let pilotStatus = document.getElementById("pilotStatus");
+    pilotStatus.innerHTML = "<li>`Pilot ${pilot} Ready`</li>"
+    let copilotStatus = document.getElementById("copilotStatus");
+    copilotStatus.innerHTML = "<li>`Copilot ${copilot} Ready`</li>"
+    let fuelStatus = document.getElementById("fuelStatus");
+    let cargoStatus = document.getElementById("cargoStatus");
+
+    while (fuelLevel < 10000 && cargoLevel < 10000) {
     
-  if(validateInput(fuelLevel) === "Not a Number" || validateInput(cargoLevel) === "Not a Number") {
-    alert("Requires a number, not text.");
-  };
+    launch.innerHTML = "<h2 style=color: red;>Shuttle not ready for launch</h2>"
+    fuelStatus.innerHTML = "<li>Fuel level too low for launch</li>"
+    cargoStatus.innerHTML = "<li>Cargo mass low enough for launch</li>"
 
-   if (fuelLevel < 10000) {
-    let launchStop = document.getElementById("launchStatus")
-    launchStop.innerHTML = "<h2 style=color: red;>Shuttle not ready for launch</h2>"
-    let pilotName = document.getElementById("pilotStatus")
-    pilotName.innerHTML = "<li>`Pilot ${pilot} Ready`</li>"
-    let copilotName = document.getElementById("copilotStatus")
-    copilotName.innerHTML = "<li>`Copilot ${copilot} Ready`</li>"
-    let fuelLow = document.getElementById("fuelStatus");
-    fuelLow.innerHTML ="<li>Fuel level too low for launch</li>"
-   };
-
-   if (fuelLevel > 10000) {
-    let pilotName = document.getElementById("pilotStatus")
-    pilotName.innerHTML = "<li>`Pilot ${pilot} Ready`</li>"
-    let copilotName = document.getElementById("copilotStatus")
-    copilotName.innerHTML = "<li>`Copilot ${copilot} Ready`</li>"
-    let fuelGood = document.getElementById("fuelStatus");
-    fuelGood.innerHTML ="<li>Fuel level ready for launch</li>"
-   };
-
-   if (cargoLevel > 10000) {
-    let pilotName = document.getElementById("pilotStatus")
-    pilotName.innerHTML = "<li>`Pilot ${pilot} Ready`</li>"
-    let copilotName = document.getElementById("copilotStatus")
-    copilotName.innerHTML = "<li>`Copilot ${copilot} Ready`</li>"
-    let launchStop = document.getElementById("launchStatus")
-    launchStop.innerHTML = "<h2 style=color: red;>Shuttle not ready for launch</h2>"
-    let cargoHigh = document.getElementById("cargoStatus")
-    cargoHigh.innerHTML ="<li>Cargo mass too high for launch</li>"
-   };
-
-   if (cargoLevel < 10000) {
-    let pilotName = document.getElementById("pilotStatus")
-    pilotName.innerHTML = "<li>`Pilot ${pilot} Ready`</li>"
-    let copilotName = document.getElementById("copilotStatus")
-    copilotName.innerHTML = "<li>`Copilot ${copilot} Ready`</li>"
-    let cargoLow = document.getElementById("cargoStatus")
-    cargoLow.innerHTML ="<li>Cargo mass low enough for launch</li>"
     };
+    
+    while (fuelLevel > 10000  && cargoLevel < 10000) {
 
-    if (fuelLevel > 10000 && cargoLevel < 10000) {
+    launch.innerHTML = "<h2 style=color: green;>Shuttle is ready for launch</h2>"
+    fuelLevel.innerHTML ="<li>Fuel level ready for launch</li>"
+    cargoLevel.innerHTML = "<li>Cargo mass low enough for launch</li>"
+
+   };
+   
+   while (fuelLevel > 10000 && cargoLevel > 10000) {
+    launch.innerHTML = "<h2 style=color: red;>Shuttle not ready for launch</h2>"
+    fuelLevel.innerHTML ="<li>Fuel level ready for launch</li>"
+    cargoLevel.innerHTML ="<li>Cargo mass too high for launch</li>"
+
+   };
+   
+   while (fuelLevel < 10000 && cargoLevel > 10000) {
+    launch.innerHTML = "<h2 style=color: red;>Shuttle not ready for launch</h2>"
+    fuelLevel.innerHTML = "<li>Fuel level too low for launch</li>"
+    cargoLevel.innerHTML ="<li>Cargo mass low enough for launch</li>"
+    };
+    };
+};
+
+/*if (fuelLevel > 10000 && cargoLevel < 10000) {
+        let launchGo = document.getElementById("launchStatus")
+        launchGo.innerHTML = "<h2 style=color: green;>Shuttle is ready for launch</h2>"
         let pilotName = document.getElementById("pilotStatus")
         pilotName.innerHTML = "<li>`Pilot ${pilot} Ready`</li>"
         let copilotName = document.getElementById("copilotStatus")
         copilotName.innerHTML = "<li>`Copilot ${copilot} Ready`</li>"
-        let launchGo = document.getElementById("launchStatus")
-    launchGo.innerHTML = "<h2 style=color: green;>Shuttle is ready for launch</h2>"
-   };//this is not DRY. 
-//};
+        
+   };//the above is not DRY. How do I do that?*/
+
 
 async function myFetch() {
     let planetsReturned;
