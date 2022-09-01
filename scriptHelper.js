@@ -4,20 +4,21 @@ require('isomorphic-fetch');
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
     // Here is the HTML formatting for our mission target div.
-
+    //why is this not displaying?
     let missionTargetDiv = document.getElementById("missionTarget");
     missionTargetDiv.innerHTML = `
     
                   <h2>Mission Destination</h2>
                <ol>
-                   <li>Name: ${destination.name} </li>;
-                   <li>Diameter: ${destination.diameter} </li>
-                   <li>Star: ${destination.star} </li>
-                   <li>Distance from Earth: ${destination.distance} </li>
-                   <li>Number of Moons: ${destination.moons} </li>
+                   <li>Name: ${name} </li>;
+                   <li>Diameter: ${diameter} </li>
+                   <li>Star: ${star} </li>
+                   <li>Distance from Earth: ${distance} </li>
+                   <li>Number of Moons: ${moons} </li>
                </ol>
-               <img src="${destination.image} ">
+               <img src="${imageUrl} ">
                `;
+    missionTargetDiv.style.visibility = "visible";
 };
 
 

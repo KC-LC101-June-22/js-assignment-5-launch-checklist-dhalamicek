@@ -17,7 +17,7 @@ window.addEventListener("load", function () {
 
         formSubmission(document, list, pilotNameInput, copilotNameInput, fuelLevelInput, cargoMassInput);
 
-        //do I change the list visibility and then replace the elements with the add destination info?
+
         let listedPlanets;
         // Set listedPlanetsResponse equal to the value returned by calling myFetch()
         window.addEventListener("load", function () {
@@ -28,13 +28,24 @@ window.addEventListener("load", function () {
             }).then(function () {
                 console.log(listedPlanets);
                 // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
-                let destination = pickPlanet(listedPlanets);
-                console.log(destination);
-            });
-            let launchStatusCheckDiv = document.getElementById("launchStatusCheck");
-            launchStatusCheckDiv.style.display = "none";
+                
+
+            }); 
+            let destination = pickPlanet(listedPlanets);
+            let nameDestination = destination.name;
+            let diameterDestination = destination.diameter;
+            let starDestination = destination.star;
+            let distanceDestination = destination.distance;
+            let moonsDestination = destination.moons;
+            let imageDestination = distination.image;
+            
+            addDestinationInfo(document, nameDestination, diameterDestination, starDestination, distanceDestination, moonsDestination, imageDestination);
         });
+
+//why is the addDestinationInfo not displaying???
+
 
     });
 });
+;
 
