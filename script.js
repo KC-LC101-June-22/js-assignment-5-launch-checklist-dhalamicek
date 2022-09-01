@@ -2,7 +2,7 @@
 //here is where event listener is and bring in functions
 
 let button = document.getElementById("formSubmit");
-// do I need this?  Why is the submit button not working?
+
 window.addEventListener("load", function () {
     let form = document.querySelector("form");
     form.addEventListener("submit", function (event) {
@@ -17,7 +17,7 @@ window.addEventListener("load", function () {
 
         formSubmission(document, list, pilotNameInput, copilotNameInput, fuelLevelInput, cargoMassInput);
 
-
+        //do I change the list visibility and then replace the elements with the add destination info?
         let listedPlanets;
         // Set listedPlanetsResponse equal to the value returned by calling myFetch()
         window.addEventListener("load", function () {
@@ -29,8 +29,12 @@ window.addEventListener("load", function () {
                 console.log(listedPlanets);
                 // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
                 let destination = pickPlanet(listedPlanets);
-            }); return destination;
+                console.log(destination);
+            });
+            let launchStatusCheckDiv = document.getElementById("launchStatusCheck");
+            launchStatusCheckDiv.style.display = "none";
         });
+
     });
 });
 
